@@ -10,16 +10,13 @@ class Command(BaseCommand):
     help = 'Test campsider page'
 
     def handle(self, *args, **options):
-        base_url = "https://www.campsider.com/genre/homme"
-
-        driver = webdriver.Chrome(executable_path="/home/louis/App/chromedriver")
-        driver.get(base_url)
-        time.sleep(10)
-
-        ScrapService.get_or_create_product_from_page(driver=driver)
-        next = driver.find_elements_by_class_name("fa-angle-right")[0]
-        print(next)
-        next.click()
-        time.sleep(10)
-
-        driver.close()
+        urls = [
+            "https://www.campsider.com/genre/homme",
+            "https://www.campsider.com/genre/femme",
+            "https://www.campsider.com/genre/enfant",
+            "https://www.campsider.com/sport/ski-snow",
+            "https://www.campsider.com/sport/randonnee-trekking",
+            "https://www.campsider.com/sport/vtt",
+        ]
+        for url in urls:
+            ScrapService.scrap_product_from_all_page(url)

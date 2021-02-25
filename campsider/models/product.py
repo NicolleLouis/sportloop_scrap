@@ -28,6 +28,13 @@ class Product(models.Model):
         null=True,
         blank=True,
     )
+    is_scrapped = models.BooleanField(
+        default=False
+    )
+    date_scrap = models.DateTimeField(
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         seller_name = self.seller.name if self.seller else 'Unknown'
@@ -36,6 +43,7 @@ class Product(models.Model):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
+        'is_scrapped',
         "name",
         "price",
         "postal_code"
