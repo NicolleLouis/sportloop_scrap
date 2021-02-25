@@ -2,7 +2,8 @@ import time
 
 from django.core.management.base import BaseCommand
 from selenium import webdriver
-from bs4 import BeautifulSoup
+
+from campsider.services.scrap_service import ScrapService
 
 
 class Command(BaseCommand):
@@ -15,14 +16,10 @@ class Command(BaseCommand):
         driver.get(base_url)
         time.sleep(10)
 
-        list_product = driver.find_elements_by_class_name("RepeatingGroup")
-        list_product = list(
-            map(
-                lambda element: element.get_attribute('innerHTML'),
-                list_product
-            )
-        )
-        soup = BeautifulSoup(list_product[0], 'html.parser')
-        items = soup.find_all("a")
-        print(len(items))
+        ScrapService.get_or_create_product_from_page(driver=driver)
+        next = driver.find_elements_by_class_name("fa-angle-right")[0]
+        print(next)
+        next.click()
+        time.sleep(10)
+
         driver.close()
