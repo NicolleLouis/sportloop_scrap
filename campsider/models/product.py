@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import admin
 
-from camprider.models.seller import Seller
+from campsider.models.seller import Seller
 
 
 class Product(models.Model):
