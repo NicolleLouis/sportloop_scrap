@@ -1,7 +1,4 @@
-import time
-
 from django.core.management.base import BaseCommand
-from selenium import webdriver
 
 from campsider.services.scrap_service import ScrapService
 

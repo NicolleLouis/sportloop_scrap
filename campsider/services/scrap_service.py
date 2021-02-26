@@ -1,7 +1,9 @@
 import time
 
+import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 from campsider.repositories.product_repository import ProductRepository
 
@@ -45,3 +47,16 @@ class ScrapService:
     @staticmethod
     def is_next_button_is_clickable(next_button):
         return next_button.value_of_css_property("cursor") == "pointer"
+
+    @staticmethod
+    def scrap_individual_product_page(
+            product,
+            driver
+    ):
+        driver.get(product.url)
+        time.sleep(2)
+        data = driver.find_element_by_xpath(
+            "//div[@class='main-page bubble-element Page']/div[2]"
+        )
+        data = data.find_element(By.CLASS_NAME, "Group")
+        print(data.get_attribute('innerHTML'))

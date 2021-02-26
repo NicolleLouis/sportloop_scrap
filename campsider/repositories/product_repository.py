@@ -14,3 +14,10 @@ class ProductRepository:
     @staticmethod
     def get_product():
         return list(Product.objects.all())
+
+    @staticmethod
+    def get_unscrapped_product(limit_number=None):
+        product_list = Product.objects.filter(is_scrapped=False)
+        if limit_number is not None:
+            product_list = product_list[:limit_number]
+        return list(product_list)
